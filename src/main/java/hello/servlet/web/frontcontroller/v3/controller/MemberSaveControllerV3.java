@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class MemberSaveControllerV3 implements ControllerV3 {
 
-    MemberRepository memberRepository = MemberRepository.getInstance();
+    private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
     public ModelView process(Map<String, String> paramMap) {
@@ -21,6 +21,7 @@ public class MemberSaveControllerV3 implements ControllerV3 {
 
         ModelView mv = new ModelView("save-result");
         mv.getModel().put("member", member);
+
         return mv;
     }
 }
