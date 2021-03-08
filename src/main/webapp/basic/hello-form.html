@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/request-param" method="post">
+    username: <input type="text" name="username" id="username"/>
+    age: <input type="text" name="age" id="age"/>
+    <!--    <button type="submit">전송</button>-->
+    <input type="button" onclick="clickAction()"/>
+</form>
+</body>
+<script type="text/javascript">
+    function clickAction() {
+        let username = document.getElementById('username');
+        let age = document.getElementById('age');
+
+        let form = document.createElement('form');
+        form.setAttribute('charset', 'UTF-8');
+        form.setAttribute('method', 'POST');
+        form.setAttribute('action', '/request-param');
+
+        let input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'username');
+        input.setAttribute('value', username.value);
+        form.appendChild(input);
+
+        input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'age');
+        input.setAttribute('value', age.value);
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+    };
+
+</script>
+</html>
