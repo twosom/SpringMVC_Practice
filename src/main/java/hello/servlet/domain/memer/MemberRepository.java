@@ -45,8 +45,8 @@ public class MemberRepository {
         store.put(member.getId(), member);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("if0rever@naver.com");
-        mailMessage.setTo("two_somang@icloud.com");
+        mailMessage.setFrom("ADMIN_EMAIL_ADDRESS");
+        mailMessage.setTo("MEMBER_EMAIL_ADDRESS");
         mailMessage.setSubject("가입 완료");
         mailMessage.setText(member.getUsername() + "님의 가입을 축하드립니다.\n" + "id = " + member.getId());
 
