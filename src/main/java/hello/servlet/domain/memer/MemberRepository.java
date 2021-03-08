@@ -30,10 +30,10 @@ public class MemberRepository {
     public static MemberRepository getInstance() {
         if (mailSender == null) {
             JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
-            mailSenderImpl.setUsername("USER_NAME");
-            mailSenderImpl.setPassword("PASSWORD");
+            mailSenderImpl.setUsername(USER_NAME);
+            mailSenderImpl.setPassword(PASSWORD);
             mailSenderImpl.setPort(PORT_NUMBER);
-            mailSenderImpl.setHost("SMTP_HOST");
+            mailSenderImpl.setHost(SMTP_HOST);
 
             mailSender = mailSenderImpl;
         }
@@ -45,8 +45,8 @@ public class MemberRepository {
         store.put(member.getId(), member);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("ADMIN_EMAIL_ADDRESS");
-        mailMessage.setTo("MEMBER_EMAIL_ADDRESS");
+        mailMessage.setFrom(ADMIN_EMAIL_ADDRESS);
+        mailMessage.setTo(MEMBER_EMAIL_ADDRESS);
         mailMessage.setSubject("가입 완료");
         mailMessage.setText(member.getUsername() + "님의 가입을 축하드립니다.\n" + "id = " + member.getId());
 
