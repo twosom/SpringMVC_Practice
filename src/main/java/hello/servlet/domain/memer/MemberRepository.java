@@ -30,10 +30,10 @@ public class MemberRepository {
     public static MemberRepository getInstance() {
         if (mailSender == null) {
             JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
-            mailSenderImpl.setUsername("if0rever");
-            mailSenderImpl.setPassword("EBN569XEUW1F");
-            mailSenderImpl.setPort(587);
-            mailSenderImpl.setHost("smtp.naver.com");
+            mailSenderImpl.setUsername("USER_NAME");
+            mailSenderImpl.setPassword("PASSWORD");
+            mailSenderImpl.setPort(PORT_NUMBER);
+            mailSenderImpl.setHost("SMTP_HOST");
 
             mailSender = mailSenderImpl;
         }
