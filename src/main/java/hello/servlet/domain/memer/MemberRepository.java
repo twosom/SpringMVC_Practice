@@ -7,20 +7,19 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
-/*
- * 동시성 문제가 고려되어 있지 않기에, 실무에서는 ConcurrentHashMap, AtomicLong 사용 고려 */
+/**
+ * 동시성 문제가 고려되어 있지 않음, 실무에서는 ConcurrentHashMap, AtomicLong 사용 고려
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class MemberRepository {
 
-
+    /**
+     * mailSender 포함 모든 멤버들 static 으로 선언
+     */
     private static MailSender mailSender;
-
     private static Map<Long, Member> store = new HashMap<>();
     private static Long sequence = 0L;
 
@@ -31,7 +30,7 @@ public class MemberRepository {
         if (mailSender == null) {
             JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
             mailSenderImpl.setUsername("if0rever");
-            mailSenderImpl.setPassword("EBN569XEUW1F");
+            mailSenderImpl.setPassword("5W8F2V8QWY87");
             mailSenderImpl.setPort(587);
             mailSenderImpl.setHost("smtp.naver.com");
 
@@ -43,7 +42,11 @@ public class MemberRepository {
     public Member save(Member member) {
         member.setId(++sequence);
         store.put(member.getId(), member);
+        sendMail(member);
+        return member;
+    }
 
+    private void sendMail(Member member) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setFrom("if0rever@naver.com");
         mailMessage.setTo("two_somang@icloud.com");
@@ -51,7 +54,6 @@ public class MemberRepository {
         mailMessage.setText(member.getUsername() + "님의 가입을 축하드립니다.\n" + "id = " + member.getId());
 
         mailSender.send(mailMessage);
-        return member;
     }
 
     public Member findById(Long id) {

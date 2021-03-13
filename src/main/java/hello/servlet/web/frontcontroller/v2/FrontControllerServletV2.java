@@ -11,42 +11,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(name = "frontControllerServletV2", urlPatterns = "/front-controller/v2/*")
+@WebServlet(name = "frontControllerV2", urlPatterns = "/front-controller/v2/*")
 public class FrontControllerServletV2 extends HttpServlet {
 
     private Map<String, ControllerV2> controllerMap = new HashMap<>();
+    String commonPath = "/front-controller/v2/";
 
     public FrontControllerServletV2() {
-        String uriPath = "/front-controller/v2/members";
-        controllerMap.put(uriPath + "/new-form", new MemberFormControllerV2());
-        controllerMap.put(uriPath + "/save", new MemberSaveControllerV2());
-        controllerMap.put(uriPath, new MemberListControllerV2());
+        controllerMap.put(commonPath + "members/new-form", new MemberFormControllerV2());
+        controllerMap.put(commonPath + "members/save", new MemberSaveControllerV2());
+        controllerMap.put(commonPath + "members", new MemberListControllerV2());
     }
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String requestURI = request.getRequestURI();
-
+        System.err.println("requestURI = " + requestURI);
         ControllerV2 controller = controllerMap.get(requestURI);
+
+
         if (controller == null) {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             response.setContentType("text/html");
             response.setCharacterEncoding("utf-8");
-            response.getWriter().write(
-                    "<html>" +
-                    "<head>" +
-                            "<title>페이지 오류</title>" +
-                            "</head>" +
-                            "<body>" +
-                            "<div>" +
-                            "<h1>지정된 페이지" + requestURI + "를 찾을 수 없습니다. </h1>" +
-                            "</div>" +
-                            "</body>" +
-                    "</html>");
+            PrintWriter writer = response.getWriter();
+            writer.write("<html><title>페이지를 찾을 수 없습니다.</title><body>요청하신 페이지 " + requestURI + " 에 대한 페이지를 찾을 수 없습니다.</body></html>");
             return;
         }
         MyView view = controller.process(request, response);

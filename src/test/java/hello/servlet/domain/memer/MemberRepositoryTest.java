@@ -18,10 +18,12 @@ class MemberRepositoryTest {
         memberRepository.clearStore();
     }
 
+
     @Test
     void save() {
         //given
-        Member member = new Member("memberA", 30);
+        Member member = new Member("Hello", 20);
+
         //when
         Member savedMember = memberRepository.save(member);
 
@@ -29,7 +31,6 @@ class MemberRepositoryTest {
         Member findMember = memberRepository.findById(savedMember.getId());
         assertThat(findMember).isEqualTo(savedMember);
     }
-
 
     @Test
     void findAll() {
@@ -39,12 +40,12 @@ class MemberRepositoryTest {
 
         memberRepository.save(member1);
         memberRepository.save(member2);
+
         //when
         List<Member> result = memberRepository.findAll();
 
         //then
         assertThat(result.size()).isEqualTo(2);
         assertThat(result).contains(member1, member2);
-
     }
 }

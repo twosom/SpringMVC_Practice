@@ -12,18 +12,17 @@ import java.io.IOException;
 
 public class MemberSaveControllerV1 implements ControllerV1 {
 
-    private MemberRepository memberRepository = MemberRepository.getInstance();
+    private final MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
     public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("MemberSaveControllerV1.process");
         String username = request.getParameter("username");
-        String age = request.getParameter("age");
+        int age = Integer.parseInt(request.getParameter("age"));
 
-        Member member = new Member(username, Integer.parseInt(age));
-        memberRepository.save(member);
-
-        //Model에 데이터 보관
-        request.setAttribute("member", member);
+        Member member = new Member(username, age);
+        Member savedMember = memberRepository.save(member);
+        request.setAttribute("savedMember", savedMember);
 
         String viewPath = "/WEB-INF/views/save-result.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);

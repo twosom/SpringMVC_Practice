@@ -1,14 +1,20 @@
 <%@ page import="hello.servlet.domain.memer.MemberRepository" %>
-<%@ page import="hello.servlet.domain.memer.Member" %>
+<%@ page import="hello.servlet.domain.memer.Member" %><%--
+  Created by IntelliJ IDEA.
+  User: desirel
+  Date: 2021/03/13
+  Time: 3:07 오전
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    //request, response 는 그냥 사용 가능.
+    /**
+     * request response는 그냥 사용 가능함.
+     */
     MemberRepository memberRepository = MemberRepository.getInstance();
 
-    System.out.println("JspClass.jsp_service_method");
     String username = request.getParameter("username");
     int age = Integer.parseInt(request.getParameter("age"));
-
     Member member = new Member(username, age);
     memberRepository.save(member);
 %>

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+
 @WebServlet(name = "memberListServlet", urlPatterns = "/servlet/members")
 public class MemberListServlet extends HttpServlet {
 
@@ -24,30 +25,30 @@ public class MemberListServlet extends HttpServlet {
 
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
-
         PrintWriter w = response.getWriter();
 
         w.write("<html>" +
-                "<head>" +
-                "<meta charset=\"utf-8\"/>" +
-                "<title>Title</title>" +
-                "</head>" +
-                "<body>" +
-                "<a href=\"index.html\">메인</a>" +
-                "<table>" +
-                "<thead>" +
-                "<th>id</th> <th>username</th> <th>age</th>" +
-                "</thead> " +
-                "<tbody>");
+                "   <head>" +
+                "   <meta charset=\"UTF-8\">" +
+                "   <title>Title</title>" +
+                "   </head>" +
+                "   <body>" +
+                "   <a href=\"index.html\">메인</a>" +
+                "   <table>" +
+                "       <thead>" +
+                "       <th>id</th> <th>username</th> <th>age</th> " +
+                "       </thead> " +
+                "   <tbody>");
 
-        members.forEach(member -> {
-            w.write("<tr>");
-            w.write("<td>" + member.getId() + "</td>");
-            w.write("<td>" + member.getUsername() + "</td>");
-            w.write("<td>" + member.getAge() + "</td>");
-            w.write("</tr>");
+        members.stream().forEach(member -> {
+            w.write("<tr>" +
+                    "       <td>" + member.getId() + "</td>" +
+                    "       <td>" + member.getUsername() + "</td>" +
+                    "       <td>" + member.getAge() + "</td> " +
+                    "   </tr>");
         });
-        w.write("</tbody> " +
+
+        w.write("</tbody>" +
                 "</table>" +
                 "</body>" +
                 "</html>");

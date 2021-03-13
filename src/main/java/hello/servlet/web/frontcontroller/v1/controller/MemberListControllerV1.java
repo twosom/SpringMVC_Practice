@@ -13,16 +13,17 @@ import java.util.List;
 
 public class MemberListControllerV1 implements ControllerV1 {
 
-    private MemberRepository memberRepository = MemberRepository.getInstance();
+    private final MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
     public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("MemberListControllerV1.process");
         List<Member> members = memberRepository.findAll();
-
         request.setAttribute("members", members);
 
         String viewPath = "/WEB-INF/views/members.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
         dispatcher.forward(request, response);
+
     }
 }
