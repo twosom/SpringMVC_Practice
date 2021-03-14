@@ -17,6 +17,7 @@
     <li>username=${savedMember.username}</li>
     <li>age=${savedMember.age}</li>
 </ul>
+<a href="/">메인</a>
 
 </body>
 </html>
